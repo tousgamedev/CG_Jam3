@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 15a1e09e0cbe5f345809134475e88771
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 218214
+  packageName: Rail Shooter - Game Template
+  packageVersion: 1.0.1
+  assetPath: Assets/Procedural Worlds/Game Templates/Rail Shooter/Content Resources/Materials/Particles/PW_M_ParticleDot.mat
+  uploadId: 511405

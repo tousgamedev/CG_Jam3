@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2e1b49fda44c8174e87fd12611285701
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 218214
+  packageName: Rail Shooter - Game Template
+  packageVersion: 1.0.1
+  assetPath: Assets/Procedural Worlds/Game Templates/Rail Shooter/Content Resources/Animations/Enemy/Enemy.controller
+  uploadId: 511405

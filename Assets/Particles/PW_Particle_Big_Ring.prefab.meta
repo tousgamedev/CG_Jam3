@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b170daa31a7f0dc46a93778413f0d06c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 218214
+  packageName: Rail Shooter - Game Template
+  packageVersion: 1.0.1
+  assetPath: Assets/Procedural Worlds/Game Templates/Rail Shooter/Content Resources/Particles/PW_Particle_Big_Ring.prefab
+  uploadId: 511405

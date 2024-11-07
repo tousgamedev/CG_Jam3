@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: aa4b9566db73ef7428acb6a73cb1a262
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 252966
+  packageName: Military 2 - Low Poly Asset Pack by ithappy
+  packageVersion: 1.1
+  assetPath: Assets/Military_2/Scripts/BlendShapeAnimator.cs
+  uploadId: 683004

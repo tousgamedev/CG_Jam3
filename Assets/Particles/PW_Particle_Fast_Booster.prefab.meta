@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 46d66c8585935e44badf85e026852d5c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 218214
+  packageName: Rail Shooter - Game Template
+  packageVersion: 1.0.1
+  assetPath: Assets/Procedural Worlds/Game Templates/Rail Shooter/Content Resources/Particles/PW_Particle_Fast_Booster.prefab
+  uploadId: 511405

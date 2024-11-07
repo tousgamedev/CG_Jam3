@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8d74d02452f79494b817d6e5dc7a3ba2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 218214
+  packageName: Rail Shooter - Game Template
+  packageVersion: 1.0.1
+  assetPath: Assets/Procedural Worlds/Game Templates/Rail Shooter/Content Resources/Materials/PW_M_Spaceship.mat
+  uploadId: 511405

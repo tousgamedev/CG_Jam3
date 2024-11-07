@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: caa542ccf70ea1e468391a32d2b8c280
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 218214
+  packageName: Rail Shooter - Game Template
+  packageVersion: 1.0.1
+  assetPath: Assets/Procedural Worlds/Game Templates/Rail Shooter/Content Resources/Prefabs/PW_PlayerModel.prefab
+  uploadId: 511405

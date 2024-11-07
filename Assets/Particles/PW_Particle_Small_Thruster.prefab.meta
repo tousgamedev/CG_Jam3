@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2315f014bd18a8b448724ee421014245
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 218214
+  packageName: Rail Shooter - Game Template
+  packageVersion: 1.0.1
+  assetPath: Assets/Procedural Worlds/Game Templates/Rail Shooter/Content Resources/Particles/PW_Particle_Small_Thruster.prefab
+  uploadId: 511405

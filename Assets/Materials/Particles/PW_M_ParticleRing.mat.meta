@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 58f303f91b1f0b3468fe8908a1db75c1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 218214
+  packageName: Rail Shooter - Game Template
+  packageVersion: 1.0.1
+  assetPath: Assets/Procedural Worlds/Game Templates/Rail Shooter/Content Resources/Materials/Particles/PW_M_ParticleRing.mat
+  uploadId: 511405
