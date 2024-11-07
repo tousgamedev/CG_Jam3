@@ -72,6 +72,21 @@ namespace Enemy
             ChangeState(EnemyStates.Track);
         }
 
+        public void OnEngage()
+        {
+            ChangeState(EnemyStates.Attack);
+        }
+
+        public void OnDisengage()
+        {
+            ChangeState(EnemyStates.Track);
+        }
+
+        public void OnDie()
+        {
+            ChangeState(EnemyStates.Die);
+        }
+
         private void ChangeState(EnemyStates newState)
         {
             currentState?.OnExit();
