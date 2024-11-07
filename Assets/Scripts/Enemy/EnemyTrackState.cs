@@ -7,7 +7,7 @@ namespace Enemy
     {
         private Transform enemyTransform;
         private Transform currentTarget;
-        
+
         public override void OnEnter(EnemyController controller)
         {
             Controller = controller;
@@ -18,6 +18,11 @@ namespace Enemy
         public override void OnUpdate(float deltaTime)
         {
             TrackTarget(deltaTime);
+
+            if (Vector3.Distance(enemyTransform.position, currentTarget.position) < Controller.EngageRange)
+            {
+                Controller.OnEngage();
+            }
         }
 
         public override void OnExit()
@@ -36,8 +41,8 @@ namespace Enemy
             {
                 Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
                 Quaternion newRotation = Quaternion.RotateTowards(
-                    enemyTransform.rotation, 
-                    targetRotation, 
+                    enemyTransform.rotation,
+                    targetRotation,
                     Controller.RotationSpeed * deltaTime
                 );
 
@@ -49,10 +54,10 @@ namespace Enemy
             Vector3 moveDirection = enemyTransform.forward * (Controller.MoveSpeed * deltaTime);
             enemyTransform.Translate(moveDirection, Space.World);
         }
-        
+
         private Transform FindTarget(Target target)
         {
-            switch(target)
+            switch (target)
             {
                 //TODO: Put this through game manager
                 case Target.Base:
@@ -65,7 +70,7 @@ namespace Enemy
                     {
                         return null;
                     }
-                    
+
                     Transform closestTurret = null;
                     float closestTurretDistance = 0;
                     if (turrets.Length > 0)
@@ -84,7 +89,7 @@ namespace Enemy
                             {
                                 continue;
                             }
-                            
+
                             closestTurret = turret.transform;
                             closestTurretDistance = distance;
                         }
@@ -95,7 +100,9 @@ namespace Enemy
                 default:
                     Debug.LogError("No valid target set!");
                     break;
-            };
+            }
+
+            ;
 
             return null;
         }

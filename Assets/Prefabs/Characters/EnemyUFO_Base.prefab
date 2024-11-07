@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 1969769935914472235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 351}
+  m_LocalPosition: {x: 0, y: 0, z: 724.9727}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 6752587640061149419}
   - component: {fileID: 3815255480705528977}
   - component: {fileID: 5655090145371542506}
+  - component: {fileID: -4648660723134115337}
   m_Layer: 0
   m_Name: EnemyUFO_Base
   m_TagString: Untagged
@@ -351,6 +352,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5.2828026
   m_Center: {x: 0, y: 0.29690337, z: 0}
+--- !u!114 &-4648660723134115337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5903451119183343922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd099bffe8e6ae409883def224815a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rateOfFire: 60
+  bulletPrefab: {fileID: 1168849813235510873, guid: be51cd7b7199a7f4089133446c259692,
+    type: 3}
+  bulletSpawn: {fileID: 1930698465129445556}
 --- !u!1 &6239716833740031672
 GameObject:
   m_ObjectHideFlags: 0

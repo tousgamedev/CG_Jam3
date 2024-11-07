@@ -8,7 +8,9 @@ namespace Weapons
     {
         public Action OnExpire;
 
-        [SerializeField] private float speed = 10f;
+        public float Speed => speed;
+        
+        [SerializeField] private float speed = 1000f;
         [SerializeField] private float maxDistance = 1000f;
         [SerializeField] private int damage = 33;
         [SerializeField] private int armorPiercing = 5;
@@ -31,6 +33,11 @@ namespace Weapons
             }
         }
 
+        public void AimAtTarget(Vector3 targetPosition)
+        {
+            transform.LookAt(targetPosition);
+        }
+        
         public void SetFaction(Faction faction)
         {
             shooterFaction = faction;
@@ -72,7 +79,11 @@ namespace Weapons
 
             if (hitObject.TryGetComponent(out Health health))
             {
-                Debug.Log("Hit");
+                if (health.Faction == shooterFaction)
+                {
+                    return;
+                }
+                
                 health.TakeDamage(damage, armorPiercing, shooterFaction);
                 Die();
             }

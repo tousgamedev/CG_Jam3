@@ -23,7 +23,6 @@ namespace Aircraft
         [SerializeField] private float pitchLerpSpeed = 1f;
         [SerializeField] private float altitudeFloor = 2f;
         [SerializeField] private float altitudeCeiling = 40f;
-        [SerializeField] private AnimationCurve pitchCurve;
         
         [Header("Roll")] [SerializeField] private float rollAngleMax = 45f; // Max bank angle for tilt
 

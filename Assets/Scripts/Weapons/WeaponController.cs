@@ -15,7 +15,7 @@ namespace Weapons
         private float timeBetweenShots;
         private float shotTimer;
         private float spawnAdjust;
-
+    
         private void Start()
         {
             timeBetweenShots = 60f / rateOfFire;

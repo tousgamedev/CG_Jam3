@@ -14,6 +14,7 @@ namespace Aircraft
     public class Health : MonoBehaviour
     {
         public Action OnHealthChange;
+        public Action OnHealthDepleted;
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
@@ -51,6 +52,7 @@ namespace Aircraft
 
         private void Die()
         {
+            OnHealthDepleted?.Invoke();
             Destroy(gameObject);
         }
     }
