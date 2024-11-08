@@ -113,16 +113,11 @@ namespace Characters.Enemy
 
         public bool IsTargetWithinArc(Transform targetTransform, float arcAngle = 60f)
         {
-            // Calculate the direction from the enemy to the target
             Vector3 directionToTarget = (targetTransform.position - bulletSpawn.position).normalized;
-
-            // Calculate the angle between the enemy's forward direction and the direction to the target
-            float angleToTarget = Vector3.Angle(bulletSpawn.forward, directionToTarget);
-
-            // Check if the angle is within half of the specified arc angle
-            return angleToTarget <= arcAngle / 2f;
+            float cosAngleThreshold = Mathf.Cos(arcAngle / 2 * Mathf.Deg2Rad);
+            return Vector3.Dot(bulletSpawn.forward, directionToTarget) >= cosAngleThreshold;
         }
-
+        
         public void SetEnemyController(EnemyController controller)
         {
             hub = controller;

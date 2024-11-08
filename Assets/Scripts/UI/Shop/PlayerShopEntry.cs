@@ -53,57 +53,66 @@ namespace UI.Shop
 
         private void OnEnable()
         {
-            buyButton.interactable = GameManager.Instance.Score >= prices[levelIndex];
+            buyButton.interactable = CanPurchase();
+        }
+
+        private bool CanPurchase()
+        {
+            return GameManager.Instance.Score >= prices[levelIndex]
+                   && levelIndex < prices.Count - 2;
         }
 
         private void OnScoreUpdated(int score)
         {
-            if (levelIndex < prices.Count)
-            {
-                buyButton.interactable = score >= prices[levelIndex];
-            }
+            buyButton.interactable = CanPurchase();
         }
 
         private void HandlePurchase()
         {
             GameManager.Instance.SubtractScore(prices[levelIndex]);
-            
+
             levelIndex++;
-            if (levelIndex >= prices.Count - 1)
-            {
-                buyButton.interactable = false;
-                priceText.text = "MAX";
-            }
-            else
-            {
-                buyButton.interactable = GameManager.Instance.Score >= prices[levelIndex];
-                priceText.text = $"${prices[levelIndex]}";
-            }
+            buyButton.interactable = CanPurchase();
+            priceText.text = levelIndex >= prices.Count - 1
+                ? "MAX"
+                : $"${prices[levelIndex]}";
 
             levelText.text = $"Level {levelIndex + 1}";
         }
-        
+
         public void UpgradeFirepower()
         {
             GameManager.Instance.UpgradeFirepower();
             HandlePurchase();
         }
-        
+
         public void UpgradeRateOfFire()
         {
             GameManager.Instance.UpgradeRateOfFire();
             HandlePurchase();
         }
-        
+
         public void UpgradeThrust()
         {
             GameManager.Instance.UpgradeThrust();
             HandlePurchase();
         }
-        
+
         public void UpgradeAfterburner()
         {
             GameManager.Instance.UpgradeAfterburner();
+            HandlePurchase();
+        }
+
+        public void UpgradeRadarRange()
+        {
+            PlayerBaseManager.Instance.UpgradeRadarRange();
+            HandlePurchase();
+        }
+
+        public void UpgradeRadarScanRate()
+        {
+            PlayerBaseManager.Instance.UpgradeRadarScanRate();
             HandlePurchase();
         }
     }

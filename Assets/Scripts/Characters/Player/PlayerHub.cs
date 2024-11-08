@@ -36,9 +36,9 @@ namespace Characters.Player
             }
         }
 
-        private void UpdateHealth()
+        private void UpdateHealth(float percentage)
         {
-            PlayerCanvas.Instance.SetHealth(health.Percentage);
+            PlayerCanvas.Instance.SetHealth(percentage);
         }
     }
 }

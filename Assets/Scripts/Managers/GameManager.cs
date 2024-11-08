@@ -23,7 +23,7 @@ namespace Managers
         private static GameManager instance;
 
         public PlayerHub Player => player;
-        
+
         public Action OnPause;
         public Action OnResume;
         public Action OnGameOver;
@@ -37,6 +37,14 @@ namespace Managers
 
         private void Update()
         {
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                Score += 50000;
+                OnScoreUpdated?.Invoke(Score);
+            }
+#endif
+            
             TogglePause();
         }
 
@@ -90,17 +98,17 @@ namespace Managers
         {
             player.WeaponController.UpgradeFirepower();
         }
-        
+
         public void UpgradeRateOfFire()
         {
             player.WeaponController.UpgradeRateOfFire();
         }
-        
+
         public void UpgradeThrust()
         {
             player.FlightController.UpgradeThrust();
         }
-        
+
         public void UpgradeAfterburner()
         {
             player.FlightController.UpgradeAfterburner();

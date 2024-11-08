@@ -14,7 +14,7 @@ namespace Aircraft
 
     public class Health : MonoBehaviour
     {
-        public Action OnHealthChange;
+        public Action<float> OnHealthChange;
         public Action<ControllerBase> OnHealthDepleted;
 
         public float CurrentHealth => currentHealth;
@@ -49,7 +49,7 @@ namespace Aircraft
 
             float armorNegation = Mathf.Clamp(armor - armorPiercing, 0, armor);
             currentHealth = Mathf.Max(0, currentHealth - (damage - armorNegation));
-            OnHealthChange?.Invoke();
+            OnHealthChange?.Invoke(Percentage);
             if (currentHealth <= 0)
             {
                 Die();

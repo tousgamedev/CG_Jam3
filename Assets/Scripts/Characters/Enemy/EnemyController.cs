@@ -25,6 +25,7 @@ namespace Characters.Enemy
     public class EnemyController : ControllerBase
     {
         public Health Health => health;
+        public float CurrentSpeed { get; set; }
         public EnemyWeaponController WeaponController => weaponController;
         public Target Target => target;
         public float EngageRange => engageRange;
@@ -47,6 +48,7 @@ namespace Characters.Enemy
         private Animator animator;
         private EnemyState currentState;
         private EnemyWeaponController weaponController;
+        private float currentSpeed;
 
         private readonly Dictionary<EnemyStates, EnemyState> states = new()
         {

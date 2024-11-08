@@ -24,7 +24,7 @@ namespace UI
         [SerializeField] private GameObject pauseImage;
         [SerializeField] private GameObject minimap;
         [SerializeField] private GameObject shop;
-        
+        [SerializeField] private GameObject gameOverScreen;
         
         private void Awake()
         {
@@ -33,6 +33,8 @@ namespace UI
                 Instance = this;
                 RegisterEvents();
                 ToggleMenu(isPaused: false);
+                minimap.gameObject.SetActive(false);
+                gameOverScreen.SetActive(false);
                 return;
             }
             
@@ -44,6 +46,7 @@ namespace UI
             GameManager.Instance.OnScoreUpdated += UpdateScore;
             GameManager.Instance.OnPause += OnPause;
             GameManager.Instance.OnResume += OnResume;
+            GameManager.Instance.OnGameOver += OnGameOver;
         }
 
         public void SetHealth(float value)
@@ -98,6 +101,24 @@ namespace UI
             crosshairTargetNear.gameObject.SetActive(!isPaused);
             crosshairTargetFar.gameObject.SetActive(!isPaused);
             statusParent.SetActive(!isPaused);
+            if (PlayerBaseManager.Instance.RadarActive)
+            {
+                minimap.gameObject.SetActive(!isPaused);
+            }
+        }
+        
+        private void OnGameOver()
+        {
+            gameOverScreen.SetActive(true);
+            pauseImage.SetActive(false);
+            shop.SetActive(false);
+            crosshairTargetNear.gameObject.SetActive(false);
+            crosshairTargetFar.gameObject.SetActive(false);
+            statusParent.SetActive(false);
+            if (PlayerBaseManager.Instance.RadarActive)
+            {
+                minimap.gameObject.SetActive(false);
+            }
         }
     }
 }

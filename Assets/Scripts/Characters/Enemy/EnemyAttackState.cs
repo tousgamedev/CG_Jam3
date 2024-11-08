@@ -14,6 +14,7 @@ namespace Characters.Enemy
             Controller = controller;
             enemyTransform = controller.transform;
             currentTarget = FindTarget(controller.Target);
+            controller.CurrentSpeed = 0;
         }
 
         public override void OnUpdate(float deltaTime)

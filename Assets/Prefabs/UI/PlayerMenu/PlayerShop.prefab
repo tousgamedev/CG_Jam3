@@ -173,6 +173,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3573241026115835795, guid: 3a370cf8ada3f484f9e10379c8a0694e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 35.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4154256020488366145, guid: 3a370cf8ada3f484f9e10379c8a0694e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 28.15
+      objectReference: {fileID: 0}
     - target: {fileID: 8393537594450306215, guid: 3a370cf8ada3f484f9e10379c8a0694e,
         type: 3}
       propertyPath: m_Name
@@ -205,12 +215,12 @@ PrefabInstance:
     - target: {fileID: 7400242028777395752, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
       propertyPath: m_fontSize
-      value: 31.5
+      value: 35.2
       objectReference: {fileID: 0}
     - target: {fileID: 7963106268262001146, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
       propertyPath: m_fontSize
-      value: 25.2
+      value: 28.15
       objectReference: {fileID: 0}
     - target: {fileID: 9053026159558014364, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
@@ -339,12 +349,12 @@ PrefabInstance:
     - target: {fileID: 7400242028777395752, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
       propertyPath: m_fontSize
-      value: 31.5
+      value: 35.2
       objectReference: {fileID: 0}
     - target: {fileID: 7963106268262001146, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
       propertyPath: m_fontSize
-      value: 25.2
+      value: 28.15
       objectReference: {fileID: 0}
     - target: {fileID: 9053026159558014364, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}

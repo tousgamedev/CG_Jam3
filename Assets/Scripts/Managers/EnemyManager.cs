@@ -49,7 +49,7 @@ namespace Managers
             }
 
             Instance = this;
-
+            spawnTimer = spawnThreshold;
             UpdateSpawnPoints();
             UpdateSpawnTable();
             CalculateSpawnParameters();
@@ -64,7 +64,7 @@ namespace Managers
         private void UpdateSpawnRate()
         {
             rateIncreaseTimer += Time.deltaTime;
-            if (!(rateIncreaseTimer > Minute) || !(currentMinute <= minutesToMaxSpawnRate))
+            if (rateIncreaseTimer < Minute || currentMinute > minutesToMaxSpawnRate)
             {
                 return;
             }

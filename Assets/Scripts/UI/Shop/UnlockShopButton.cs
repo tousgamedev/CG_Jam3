@@ -15,7 +15,7 @@ namespace UI.Shop
 
         private void OnEnable()
         {
-            priceText.text = $"{unlockPrice}";
+            priceText.text = $"${unlockPrice}";
             if (isActiveAndEnabled)
             {
                 unlockShopButton.interactable = GameManager.Instance.Score >= unlockPrice;
@@ -30,12 +30,12 @@ namespace UI.Shop
 
         public void BuildTurret(int turretID)
         {
-            
+            PlayerBaseManager.Instance.ActivateTurret(turretID);
         }
 
         public void BuildRadar()
         {
-            
+            PlayerBaseManager.Instance.UnlockRadar();
         }
     }
 }

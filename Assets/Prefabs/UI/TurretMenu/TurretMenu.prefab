@@ -381,10 +381,90 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4638567265237007145}
     m_Modifications:
+    - target: {fileID: 711140709109131267, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[0]'
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 711140709109131267, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[1]'
+      value: 4500
+      objectReference: {fileID: 0}
+    - target: {fileID: 711140709109131267, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[2]'
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 934726850179107015, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[0]'
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 934726850179107015, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[1]'
+      value: 4500
+      objectReference: {fileID: 0}
+    - target: {fileID: 934726850179107015, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[2]'
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275687997655691788, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: turretIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275687997655691788, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[0]'
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275687997655691788, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[1]'
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275687997655691788, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[2]'
+      value: 9000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277731280848002076, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: unlockPrice
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540420148405705466, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: turretIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540420148405705466, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[0]'
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540420148405705466, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[1]'
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540420148405705466, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[2]'
+      value: 9000
+      objectReference: {fileID: 0}
     - target: {fileID: 2548921778996323612, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
       propertyPath: m_Name
       value: TurretSlot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255207550561075077, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7400242028777395752, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
@@ -515,10 +595,90 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4638567265237007145}
     m_Modifications:
+    - target: {fileID: 711140709109131267, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[0]'
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 711140709109131267, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[1]'
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 711140709109131267, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[2]'
+      value: 9000
+      objectReference: {fileID: 0}
+    - target: {fileID: 934726850179107015, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[0]'
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 934726850179107015, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[1]'
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 934726850179107015, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[2]'
+      value: 9000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275687997655691788, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: turretIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275687997655691788, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[0]'
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275687997655691788, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[1]'
+      value: 8000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275687997655691788, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[2]'
+      value: 12000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277731280848002076, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: unlockPrice
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540420148405705466, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: turretIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540420148405705466, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[0]'
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540420148405705466, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[1]'
+      value: 8000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540420148405705466, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: 'prices.Array.data[2]'
+      value: 12000
+      objectReference: {fileID: 0}
     - target: {fileID: 2548921778996323612, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
       propertyPath: m_Name
       value: TurretSlot (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255207550561075077, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7400242028777395752, guid: 6fee1cdc289b7cb48a4282c5f84be55e,
         type: 3}
