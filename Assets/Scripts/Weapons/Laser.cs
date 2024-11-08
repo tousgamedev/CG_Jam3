@@ -14,7 +14,7 @@ namespace Weapons
         [SerializeField] private float maxDistance = 1000f;
         [SerializeField] private int damage = 33;
         [SerializeField] private int armorPiercing = 5;
-        [SerializeField] private string[] ignoredNames;
+        [SerializeField] private GameObject impactAudioPrefab;
 
         private Vector3 startPosition;
         private Faction shooterFaction;
@@ -52,6 +52,15 @@ namespace Weapons
         private void Die()
         {
             OnExpire?.Invoke();
+            PlayImpactSound();
+            Destroy(gameObject);
+        }
+
+        private void PlayImpactSound()
+        {
+            GameObject impactSound = Instantiate(impactAudioPrefab, transform.position, Quaternion.identity);
+            var audioSource = impactSound.GetComponent<AudioSource>();
+            Destroy(impactSound, audioSource.clip.length);
             Destroy(gameObject);
         }
 
@@ -68,15 +77,6 @@ namespace Weapons
         private void OnTriggerEnter(Collider other)
         {
             GameObject hitObject = other.gameObject;
-            string otherName = hitObject.name;
-            foreach (string ignoredName in ignoredNames)
-            {
-                if (otherName.Contains(ignoredName))
-                {
-                    return;
-                }
-            }
-
             if (hitObject.TryGetComponent(out Health health))
             {
                 if (health.Faction == shooterFaction)

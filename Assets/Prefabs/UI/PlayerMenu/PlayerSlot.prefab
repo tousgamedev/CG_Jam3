@@ -332,7 +332,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2894177676932086971}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5758461826314836160}
+        m_TargetAssemblyTypeName: UI.Shop.UnlockShopButton, Assembly-CSharp
+        m_MethodName: UnlockShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1864175444129138111
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,6 +691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3064291015403500583}
   - component: {fileID: 3951010348093732996}
+  - component: {fileID: 5758461826314836160}
   m_Layer: 5
   m_Name: PlayerSlot
   m_TagString: Untagged
@@ -716,6 +729,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8393537594450306215}
   m_CullTransparentMesh: 1
+--- !u!114 &5758461826314836160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8393537594450306215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be7415bd45b6a042a4cf6208250f1f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockShopButton: {fileID: 138121762620931646}
+  unlockPrice: 1000
+  purchaseOptions: {fileID: 5886255582528817908}
+  unlockPrompt: {fileID: 4041369109106747452}
+  priceText: {fileID: 5238840176340424448}
 --- !u!1 &8416647518513498250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,6 +1177,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e72058b52a93d045b17d645d166827c, type: 3}
+--- !u!1 &5886255582528817908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6251592814533369338, guid: 2e72058b52a93d045b17d645d166827c,
+    type: 3}
+  m_PrefabInstance: {fileID: 536544946051553038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8716892762445349460 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9190350411282093402, guid: 2e72058b52a93d045b17d645d166827c,

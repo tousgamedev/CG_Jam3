@@ -49,9 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1000
   maxDistance: 1000
-  damage: 5
-  armorPiercing: 0
-  ignoredNames: []
+  damage: 1
+  armorPiercing: 100
+  impactAudioPrefab: {fileID: 8592997251757242315, guid: 22934b00fe3db4941a40c390ed5a7d5e,
+    type: 3}
 --- !u!135 &1687248496501951098
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -71,7 +72,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2.5
+  m_Radius: 2.25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5119440173897264001
 Rigidbody:
@@ -164,7 +165,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9bff56c2e6916f14ab83e8fd32631a29, type: 2}
+  - {fileID: 2100000, guid: 773458b6a09bf0e4da0a59048173cc6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

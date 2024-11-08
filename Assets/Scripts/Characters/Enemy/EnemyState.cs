@@ -1,4 +1,4 @@
-namespace Enemy
+namespace Characters.Enemy
 {
     public abstract class EnemyState
     {

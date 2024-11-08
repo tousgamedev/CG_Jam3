@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using Character;
-using Player;
 using UI;
 using UnityEngine;
 
-namespace Aircraft
+namespace Characters.Player
 {
     [System.Serializable]
     public struct EngineColor
@@ -18,10 +18,20 @@ namespace Aircraft
 
         [Header("Controls")] [SerializeField] private bool invertYAxis = true;
 
-        [Header("Speed")] [SerializeField] private float baseForwardSpeed = 20f;
-        [SerializeField] private float boostSpeedModifier = 20f;
+        [Header("Speed")] [SerializeField] private List<float> baseThrusts = new()
+        {
+            25f,
+            30f,
+            35f
+        };
+        [SerializeField] private float afterburnerSpeedModifier = 20f;
         [SerializeField] private float boostTimeToMaxSpeed = .25f;
-        [SerializeField] private float boostDuration = 3f;
+        [SerializeField] private List<float> afterburnerDuration = new()
+        {
+            3f,
+            6f,
+            10f
+        };
 
         [Header("Turn")] [SerializeField] private float turnRateMax = 45f;
         [SerializeField] private float turnLerpSpeed = 2f;
@@ -41,6 +51,8 @@ namespace Aircraft
         [Header("Crosshair")] [SerializeField] private Transform crosshairTargetNear;
         [SerializeField] private Transform crosshairTargetFar;
 
+        private float TargetBoostSpeed => baseThrusts[afterburnerIndex] + afterburnerSpeedModifier;
+        
         private PlayerHub hub;
         private Vector3 currentPitch;
         private Vector3 moveDirection;
@@ -48,19 +60,20 @@ namespace Aircraft
         private float currentTurnRate;
         private float currentRoll;
         private float currentBoostDuration;
-        private float targetBoostSpeed;
         private float boostRate;
         private bool hasEnoughBoost;
         private bool isBoosting;
         private float boostLerp;
 
+        private int thrustIndex;
+        private int afterburnerIndex;
+        
         private void Start()
         {
             currentPitch = transform.forward;
-            currentBoostDuration = boostDuration;
-            CurrentSpeed = baseForwardSpeed;
-            targetBoostSpeed = baseForwardSpeed + boostSpeedModifier;
-            boostRate = boostSpeedModifier / boostTimeToMaxSpeed;
+            currentBoostDuration = afterburnerDuration[afterburnerIndex];
+            CurrentSpeed = baseThrusts[thrustIndex];
+            boostRate = afterburnerSpeedModifier / boostTimeToMaxSpeed;
 
             PlayerCanvas.Instance.SetCrosshairTargetFar(crosshairTargetFar);
             PlayerCanvas.Instance.SetCrosshairTargetNear(crosshairTargetNear);
@@ -79,28 +92,28 @@ namespace Aircraft
 
         private void UpdateBoost(float deltaTime)
         {
-            if (!isBoosting && currentBoostDuration < boostDuration)
+            if (!isBoosting && currentBoostDuration < afterburnerDuration[afterburnerIndex])
             {
-                currentBoostDuration = Mathf.Min(currentBoostDuration + deltaTime, boostDuration);
+                currentBoostDuration = Mathf.Min(currentBoostDuration + deltaTime, afterburnerDuration[afterburnerIndex]);
             }
 
-            if (Input.GetKey(KeyCode.Space) && ((isBoosting && currentBoostDuration > 0) || currentBoostDuration >= boostDuration))
+            if (Input.GetKey(KeyCode.Space) && ((isBoosting && currentBoostDuration > 0) || currentBoostDuration >= afterburnerDuration[afterburnerIndex]))
             {
                 isBoosting = true;
                 currentBoostDuration -= deltaTime;
 
-                CurrentSpeed = Mathf.MoveTowards(CurrentSpeed, targetBoostSpeed, boostRate * deltaTime);
+                CurrentSpeed = Mathf.MoveTowards(CurrentSpeed, TargetBoostSpeed, boostRate * deltaTime);
             }
             else
             {
                 isBoosting = false;
-                CurrentSpeed = Mathf.MoveTowards(CurrentSpeed, baseForwardSpeed, boostRate * deltaTime);
+                CurrentSpeed = Mathf.MoveTowards(CurrentSpeed, baseThrusts[thrustIndex], boostRate * deltaTime);
             }
 
-            float boostProgress = Mathf.InverseLerp(baseForwardSpeed, targetBoostSpeed, CurrentSpeed);
+            float boostProgress = Mathf.InverseLerp(baseThrusts[thrustIndex], TargetBoostSpeed, CurrentSpeed);
             SetThrusterColor(boostProgress);
 
-            PlayerCanvas.Instance.SetBoost(currentBoostDuration / boostDuration);
+            PlayerCanvas.Instance.SetBoost(currentBoostDuration / afterburnerDuration[afterburnerIndex]);
         }
 
         private void SetThrusterColor(float boostProgress)
@@ -168,13 +181,29 @@ namespace Aircraft
             }
 
             // Calculate vertical speed using max forward speed and climb angle
-            float targetVerticalSpeed = baseForwardSpeed * Mathf.Sin(targetClimbAngle * Mathf.Deg2Rad);
+            float targetVerticalSpeed = baseThrusts[thrustIndex] * Mathf.Sin(targetClimbAngle * Mathf.Deg2Rad);
             currentVerticalSpeed = Mathf.Lerp(currentVerticalSpeed, targetVerticalSpeed, pitchLerpSpeed * deltaTime);
         }
 
         public void SetPlayerHub(PlayerHub playerHub)
         {
             hub = playerHub;
+        }
+
+        public void UpgradeThrust()
+        {
+            if (thrustIndex < baseThrusts.Count - 1)
+            {
+                thrustIndex++;
+            }
+        }
+
+        public void UpgradeAfterburner()
+        {
+            if (afterburnerIndex < afterburnerDuration.Count - 1)
+            {
+                afterburnerIndex++;
+            }
         }
     }
 }

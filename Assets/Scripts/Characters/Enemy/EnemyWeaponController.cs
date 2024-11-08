@@ -1,8 +1,8 @@
-using Player;
+using Characters.Player;
 using UnityEngine;
 using Weapons;
 
-namespace Enemy
+namespace Characters.Enemy
 {
     public class EnemyWeaponController : MonoBehaviour
     {

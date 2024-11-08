@@ -47,7 +47,7 @@ namespace Aircraft
                 return;
             }
 
-            float armorNegation = armor - armorPiercing;
+            float armorNegation = Mathf.Clamp(armor - armorPiercing, 0, armor);
             currentHealth = Mathf.Max(0, currentHealth - (damage - armorNegation));
             OnHealthChange?.Invoke();
             if (currentHealth <= 0)
@@ -59,7 +59,6 @@ namespace Aircraft
         private void Die()
         {
             OnHealthDepleted?.Invoke(controller);
-            Destroy(gameObject);
         }
     }
 }

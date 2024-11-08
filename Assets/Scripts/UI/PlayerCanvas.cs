@@ -76,9 +76,9 @@ namespace UI
             return Mathf.Clamp(value, 0f, 1f);
         }
 
-        private void UpdateScore()
+        private void UpdateScore(int score)
         {
-            scoreText.text = $"${GameManager.Instance.Score}";
+            scoreText.text = $"${score}";
         }
 
         private void OnPause()

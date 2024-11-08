@@ -1,7 +1,6 @@
 using System;
-using Aircraft;
 using Character;
-using Player;
+using Characters.Player;
 using UnityEngine;
 
 namespace Managers
@@ -23,10 +22,12 @@ namespace Managers
 
         private static GameManager instance;
 
+        public PlayerHub Player => player;
+        
         public Action OnPause;
         public Action OnResume;
         public Action OnGameOver;
-        public Action OnScoreUpdated;
+        public Action<int> OnScoreUpdated;
 
         public int Score { get; private set; }
 
@@ -42,11 +43,13 @@ namespace Managers
         public void AddScore(int scoreToAdd)
         {
             Score += scoreToAdd;
+            OnScoreUpdated?.Invoke(Score);
         }
 
         public void SubtractScore(int scoreToSubtract)
         {
             Score -= scoreToSubtract;
+            OnScoreUpdated?.Invoke(Score);
         }
 
         private void TogglePause()
@@ -60,7 +63,7 @@ namespace Managers
             if (isPaused)
             {
                 LockMouse(false);
-                Time.timeScale = 0;
+                Time.timeScale = 0f;
                 OnPause?.Invoke();
             }
             else
@@ -73,10 +76,37 @@ namespace Managers
 
         public void OnPlayerDeath(ControllerBase controller)
         {
+            player.FlightController.enabled = false;
+            player.WeaponController.enabled = false;
             OnGameOver?.Invoke();
         }
 
-        private void LockMouse(bool isLocked)
+        public void OnBaseDeath(ControllerBase controller)
+        {
+            OnGameOver?.Invoke();
+        }
+
+        public void UpgradeFirepower()
+        {
+            player.WeaponController.UpgradeFirepower();
+        }
+        
+        public void UpgradeRateOfFire()
+        {
+            player.WeaponController.UpgradeRateOfFire();
+        }
+        
+        public void UpgradeThrust()
+        {
+            player.FlightController.UpgradeThrust();
+        }
+        
+        public void UpgradeAfterburner()
+        {
+            player.FlightController.UpgradeAfterburner();
+        }
+
+        private static void LockMouse(bool isLocked)
         {
             Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !isLocked;

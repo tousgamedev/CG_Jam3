@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Enemy
+namespace Characters.Enemy
 {
     public class EnemyTrackState : EnemyState
     {

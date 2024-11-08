@@ -4,7 +4,7 @@ using UI;
 using UnityEngine;
 using Weapons;
 
-namespace Player
+namespace Characters.Player
 {
     public class PlayerHub : MonoBehaviour
     {

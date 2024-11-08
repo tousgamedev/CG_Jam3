@@ -1,4 +1,5 @@
-using Player;
+using System.Collections.Generic;
+using Characters.Player;
 using UnityEngine;
 
 namespace Weapons
@@ -6,24 +7,37 @@ namespace Weapons
     public class WeaponController : MonoBehaviour
     {
         [SerializeField, Tooltip("Shots per minute")]
-        private float rateOfFire;
+        private List<float> rateOfFires = new()
+        {
+            120,
+            180,
+            240
+        };
 
-        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private List<GameObject> bulletPrefabs;
         [SerializeField] private Transform bulletSpawn;
 
         private PlayerHub hub;
         private float timeBetweenShots;
         private float shotTimer;
         private float spawnAdjust;
-    
+        
+        private int prefabIndex;
+        private int rateOfFireIndex;
+        
         private void Start()
         {
-            timeBetweenShots = 60f / rateOfFire;
+            timeBetweenShots = 60f / rateOfFires[rateOfFireIndex];
             shotTimer = timeBetweenShots;
         }
 
         private void Update()
         {
+            if (Time.timeScale == 0)
+            {
+                return;
+            }
+            
             if (Input.GetMouseButton(0) && shotTimer > timeBetweenShots)
             {
                 SpawnProjectile();
@@ -36,7 +50,7 @@ namespace Weapons
         {
             Vector3 adjustedPosition = CalculateSpawnPosition();
             shotTimer = 0;
-            var laser = Instantiate(bulletPrefab, adjustedPosition, bulletSpawn.rotation).GetComponent<Laser>();
+            var laser = Instantiate(bulletPrefabs[prefabIndex], adjustedPosition, bulletSpawn.rotation).GetComponent<Laser>();
             if (laser != null)
             {
                 laser.SetFaction(hub.Health.Faction);
@@ -46,6 +60,23 @@ namespace Weapons
         public void SetPlayerHub(PlayerHub playerHub)
         {
             hub = playerHub;
+        }
+
+        public void UpgradeFirepower()
+        {
+            if (prefabIndex < bulletPrefabs.Count - 1)
+            {
+                prefabIndex++;
+            }
+        }
+        
+        public void UpgradeRateOfFire()
+        {
+            if (rateOfFireIndex < rateOfFires.Count - 1)
+            {
+                rateOfFireIndex++;
+                timeBetweenShots = 60f / rateOfFires[rateOfFireIndex];
+            }
         }
 
         private Vector3 CalculateSpawnPosition()

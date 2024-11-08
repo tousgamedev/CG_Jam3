@@ -332,6 +332,8 @@ MonoBehaviour:
   fireRange: 400
   shotSpawnPoint: {fileID: 1930698465129445556}
   scoreValue: 100
+  deathPrefab: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,
+    type: 3}
 --- !u!135 &5655090145371542506
 SphereCollider:
   m_ObjectHideFlags: 0
