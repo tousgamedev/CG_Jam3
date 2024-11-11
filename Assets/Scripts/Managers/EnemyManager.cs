@@ -57,6 +57,11 @@ namespace Managers
 
         private void Update()
         {
+            if (GameManager.Instance.GameOver)
+            {
+                return;
+            }
+            
             UpdateSpawnRate();
             SpawnEnemy();
         }

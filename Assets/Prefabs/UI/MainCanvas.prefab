@@ -924,7 +924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13836467, g: 0.13836467, b: 0.13836467, a: 0.8666667}
+  m_Color: {r: 0.11949676, g: 0.11949676, b: 0.11949676, a: 0.94509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3966,6 +3966,7 @@ MonoBehaviour:
   pauseImage: {fileID: 3622274192444572077}
   minimap: {fileID: 2669505570629781322}
   shop: {fileID: 7464195898607341622}
+  gameOverScreen: {fileID: 2243465903402055413}
 --- !u!1001 &354502446096829582
 PrefabInstance:
   m_ObjectHideFlags: 0

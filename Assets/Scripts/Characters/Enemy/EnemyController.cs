@@ -11,7 +11,8 @@ namespace Characters.Enemy
         Spawn,
         Track,
         Attack,
-        Die
+        Die,
+        Idle
     }
 
     public enum Target
@@ -55,7 +56,8 @@ namespace Characters.Enemy
             { EnemyStates.Spawn, new EnemySpawnState() },
             { EnemyStates.Track, new EnemyTrackState() },
             { EnemyStates.Attack, new EnemyAttackState() },
-            { EnemyStates.Die, new EnemyDieState() }
+            { EnemyStates.Die, new EnemyDieState() },
+            { EnemyStates.Idle, new EnemyIdleState() }
         };
 
         private void Awake()
@@ -76,6 +78,7 @@ namespace Characters.Enemy
             }
 
             ChangeState(EnemyStates.Spawn);
+            GameManager.Instance.OnGameOver += OnGameOver;
         }
 
         private void Update()
@@ -117,6 +120,11 @@ namespace Characters.Enemy
             {
                 currentState.OnEnter(this);
             }
+        }
+
+        private void OnGameOver()
+        {
+            ChangeState(EnemyStates.Idle);
         }
     }
 }

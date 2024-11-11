@@ -22,7 +22,6 @@ namespace Managers
 
         private static GameManager instance;
 
-        public PlayerHub Player => player;
 
         public Action OnPause;
         public Action OnResume;
@@ -30,6 +29,7 @@ namespace Managers
         public Action<int> OnScoreUpdated;
 
         public int Score { get; private set; }
+        public bool GameOver { get; private set; }
 
         [SerializeField] private PlayerHub player;
 
@@ -84,13 +84,13 @@ namespace Managers
 
         public void OnPlayerDeath(ControllerBase controller)
         {
-            player.FlightController.enabled = false;
-            player.WeaponController.enabled = false;
+            GameOver = true;
             OnGameOver?.Invoke();
         }
 
         public void OnBaseDeath(ControllerBase controller)
         {
+            GameOver = true;
             OnGameOver?.Invoke();
         }
 
