@@ -1,3 +1,5 @@
+using Movement;
+
 namespace Characters.Enemy
 {
     public class EnemyDieState : EnemyState

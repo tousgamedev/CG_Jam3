@@ -9,11 +9,9 @@ namespace UI
     {
         public static PlayerCanvas Instance;
 
-        [Header("Status Bars")]
-        [SerializeField] private GameObject statusParent;
-        [SerializeField] private Slider healthSlider;
-        [SerializeField] private Slider shieldSlider;
-        [SerializeField] private Slider boostSlider;
+        public PlayerStatus Status => playerStatus;
+        
+        [SerializeField] private PlayerStatus playerStatus;
 
         [Header("Crosshairs")]
         [SerializeField] private FollowTransform crosshairTargetNear;
@@ -49,20 +47,7 @@ namespace UI
             GameManager.Instance.OnGameOver += OnGameOver;
         }
 
-        public void SetHealth(float value)
-        {
-            healthSlider.value = ClampValue(value);
-        }
 
-        public void SetShield(float value)
-        {
-            shieldSlider.value = ClampValue(value);
-        }
-
-        public void SetBoost(float value)
-        {
-            boostSlider.value = ClampValue(value);
-        }
 
         public void SetCrosshairTargetNear(Transform crosshairTarget)
         {
@@ -72,11 +57,6 @@ namespace UI
         public void SetCrosshairTargetFar(Transform crosshairTarget)
         {
             crosshairTargetFar.SetTarget(crosshairTarget);
-        }
-
-        private static float ClampValue(float value)
-        {
-            return Mathf.Clamp(value, 0f, 1f);
         }
 
         private void UpdateScore(int score)
@@ -100,7 +80,7 @@ namespace UI
             shop.SetActive(isPaused);
             crosshairTargetNear.gameObject.SetActive(!isPaused);
             crosshairTargetFar.gameObject.SetActive(!isPaused);
-            statusParent.SetActive(!isPaused);
+            playerStatus.gameObject.SetActive(!isPaused);
             if (PlayerBaseManager.Instance.RadarActive)
             {
                 minimap.gameObject.SetActive(!isPaused);
@@ -114,7 +94,7 @@ namespace UI
             shop.SetActive(false);
             crosshairTargetNear.gameObject.SetActive(false);
             crosshairTargetFar.gameObject.SetActive(false);
-            statusParent.SetActive(false);
+            playerStatus.gameObject.SetActive(false);
             if (PlayerBaseManager.Instance.RadarActive)
             {
                 minimap.gameObject.SetActive(false);

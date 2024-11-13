@@ -1,6 +1,8 @@
 using System;
-using Character;
+using Characters;
 using Characters.Player;
+using Movement;
+using Player;
 using UnityEngine;
 
 namespace Managers
@@ -31,7 +33,7 @@ namespace Managers
         public int Score { get; private set; }
         public bool GameOver { get; private set; }
 
-        [SerializeField] private PlayerHub player;
+        [SerializeField] private PlayerController player;
 
         private bool isPaused;
 
@@ -82,13 +84,13 @@ namespace Managers
             }
         }
 
-        public void OnPlayerDeath(ControllerBase controller)
+        public void OnPlayerDeath(BaseCharacterController controller)
         {
             GameOver = true;
             OnGameOver?.Invoke();
         }
 
-        public void OnBaseDeath(ControllerBase controller)
+        public void OnBaseDeath(BaseCharacterController controller)
         {
             GameOver = true;
             OnGameOver?.Invoke();
@@ -104,14 +106,14 @@ namespace Managers
             player.WeaponController.UpgradeRateOfFire();
         }
 
-        public void UpgradeThrust()
+        public void UpgradeBaseSpeed()
         {
-            player.FlightController.UpgradeThrust();
+            player.MovementMode.IncrementIndex(MovementAttribute.BaseSpeed);
         }
 
-        public void UpgradeAfterburner()
+        public void UpgradeBoost()
         {
-            player.FlightController.UpgradeAfterburner();
+            player.MovementMode.IncrementIndex(MovementAttribute.BoostSpeed);
         }
 
         private static void LockMouse(bool isLocked)

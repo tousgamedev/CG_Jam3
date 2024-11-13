@@ -1,4 +1,6 @@
 using Characters.Player;
+using Movement;
+using Player;
 using UnityEngine;
 using Weapons;
 
@@ -49,7 +51,7 @@ namespace Characters.Enemy
             }
             
             laser.SetFaction(hub.Health.Faction);
-            if (!target.gameObject.TryGetComponent(out PlayerHub player))
+            if (!target.gameObject.TryGetComponent(out PlayerController player))
             {
                 laser.AimAtTarget(target.position);
                 return;
@@ -70,9 +72,9 @@ namespace Characters.Enemy
             laser.AimAtTarget(futurePosition);
         }
 
-        private bool CalculateMovingTargetPosition(Transform target, PlayerHub player, Laser laser, out Vector3 futurePosition)
+        private bool CalculateMovingTargetPosition(Transform target, PlayerController player, Laser laser, out Vector3 futurePosition)
         {
-            float playerSpeed = player.FlightController.CurrentSpeed;
+            float playerSpeed = player.MovementMode.CurrentSpeed;
             Vector3 playerDirection = target.forward; // Assuming player is moving in its forward direction
             Vector3 playerVelocity = playerDirection * playerSpeed;
 

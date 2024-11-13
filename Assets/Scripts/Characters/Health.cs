@@ -1,5 +1,6 @@
 using System;
-using Character;
+using Characters;
+using Movement;
 using UnityEngine;
 
 namespace Aircraft
@@ -15,7 +16,7 @@ namespace Aircraft
     public class Health : MonoBehaviour
     {
         public Action<float> OnHealthChange;
-        public Action<ControllerBase> OnHealthDepleted;
+        public Action<BaseCharacterController> OnHealthDepleted;
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
@@ -28,14 +29,14 @@ namespace Aircraft
         [SerializeField] private float armor = 10;
 
         private float currentHealth;
-        private ControllerBase controller;
+        private BaseCharacterController controller;
         
         private void Awake()
         {
             currentHealth = maxHealth;
         }
 
-        public void SetController(ControllerBase controller)
+        public void SetController(BaseCharacterController controller)
         {
             this.controller = controller;
         }

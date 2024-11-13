@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Character;
+using Characters;
 using Characters.Enemy;
+using Movement;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,7 +14,7 @@ namespace Managers
         public GameObject Prefab;
     }
 
-    public class EnemyManager : MonoBehaviour
+    public class EnemyManager : BaseCharacterController
     {
         public static EnemyManager Instance { get; private set; }
 
@@ -183,9 +184,9 @@ namespace Managers
             return spawnPoints[random];
         }
 
-        private void RemoveEnemy(ControllerBase controllerBase)
+        private void RemoveEnemy(BaseCharacterController controller)
         {
-            if (controllerBase is EnemyController enemy)
+            if (controller is EnemyController enemy)
             {
                 enemies.Remove(enemy);
             }

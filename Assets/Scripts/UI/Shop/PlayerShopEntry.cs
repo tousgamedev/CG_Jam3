@@ -94,13 +94,13 @@ namespace UI.Shop
 
         public void UpgradeThrust()
         {
-            GameManager.Instance.UpgradeThrust();
+            GameManager.Instance.UpgradeBaseSpeed();
             HandlePurchase();
         }
 
         public void UpgradeAfterburner()
         {
-            GameManager.Instance.UpgradeAfterburner();
+            GameManager.Instance.UpgradeBoost();
             HandlePurchase();
         }
 
