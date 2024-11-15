@@ -50,17 +50,13 @@ namespace Player
         {
             MovementMode.enabled = false;
             WeaponController.enabled = false;
-            GameObject effect = Instantiate(destroyPrefab);
-            Destroy(effect, 3);
-            Destroy(gameObject);
-        }
-
-        private void OnDestroy()
-        {
             movementMode.OnBoostDurationChange -= PlayerCanvas.Instance.Status.SetBoost;
             health.OnHealthDepleted -= OnDeath;
             health.OnHealthDepleted -= GameManager.Instance.OnPlayerDeath;
             health.OnHealthChange -= UpdateHealth;
+            GameObject effect = Instantiate(destroyPrefab);
+            Destroy(effect, 3);
+            Destroy(gameObject);
         }
     }
 }

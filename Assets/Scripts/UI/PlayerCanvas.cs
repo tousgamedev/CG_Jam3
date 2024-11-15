@@ -1,7 +1,6 @@
 using Managers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI
 {

@@ -3556,6 +3556,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2693443765490503402}
+  - component: {fileID: 6402158743699724911}
   m_Layer: 5
   m_Name: PlayerStatus
   m_TagString: Untagged
@@ -3585,6 +3586,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &6402158743699724911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027698106339243573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4acb634bfdaea8943be90a79b6d123cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 892878838601130305}
+  shieldSlider: {fileID: 8790589889246055463}
+  boostSlider: {fileID: 6539111624334289552}
 --- !u!1 &8288442697034688141
 GameObject:
   m_ObjectHideFlags: 0
@@ -3956,10 +3972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7418ee76ad66842885dcf0803f5e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusParent: {fileID: 8027698106339243573}
-  healthSlider: {fileID: 892878838601130305}
-  shieldSlider: {fileID: 8790589889246055463}
-  boostSlider: {fileID: 6539111624334289552}
+  playerStatus: {fileID: 6402158743699724911}
   crosshairTargetNear: {fileID: 6161592554602055322}
   crosshairTargetFar: {fileID: 8526286867886096167}
   scoreText: {fileID: 7682845431544942717}

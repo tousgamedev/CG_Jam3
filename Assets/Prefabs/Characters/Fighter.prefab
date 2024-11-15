@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 2879379010043627756}
   - component: {fileID: 7787973141326384584}
   - component: {fileID: 4052315552638392451}
+  - component: {fileID: 6301654481718257915}
+  - component: {fileID: 7216805188051685242}
   - component: {fileID: 933403337199292374}
   - component: {fileID: 1104246116795797972}
   - component: {fileID: 902074198081565389}
@@ -145,7 +147,19 @@ MonoBehaviour:
     m_ActionId: 27c5f898-bc57-4ee1-8800-db469aca5fe3
     m_ActionName: 'Player/Cycle Weapon[/Keyboard/c]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7787973141326384584}
+        m_TargetAssemblyTypeName: Player.PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnBoostInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f1ba0d36-48eb-4cd5-b651-1c94a6531f70
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   - m_PersistentCalls:
@@ -249,28 +263,55 @@ MonoBehaviour:
   - 1
   pitchAngles:
   - 45
-  pitchLerpSpeed: 1
+  pitchLerpSpeed: 3
   turnAngles:
   - yaw: 75
     roll: 60
   turnLerpSpeed: 2
   modelParent: {fileID: 724243218347276488}
-  engineParticles: {fileID: 2735623683668724173}
-  baseEffects:
-    primaryColor: {r: 1, g: 0.8117647, b: 0, a: 0.5176471}
-    secondaryColor: {r: 1, g: 0.011764706, b: 0.29411766, a: 0.38431373}
+  engineEffects: {fileID: 6301654481718257915}
+--- !u!114 &6301654481718257915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388499676798950040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a20fdc0cb8be846a088e0a1f26d381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engineParticleSystem: {fileID: 2735623683668724173}
+  baseEffectsConfig:
+    primaryColor: {r: 1, g: 0.752226, b: 0, a: 0.5176471}
+    secondaryColor: {r: 0.93710685, g: 0, b: 0.09034896, a: 0.38431373}
     speedRange: {x: 10, y: 20}
     sizeRange: {x: 10, y: 15}
-  boostEffects:
-    primaryColor: {r: 0, g: 0.75686276, b: 1, a: 0.5176471}
-    secondaryColor: {r: 0.9764706, g: 0.011764706, b: 1, a: 0.38431373}
+  boostConfigConfig:
+    primaryColor: {r: 0, g: 0.95065093, b: 1, a: 0.5176471}
+    secondaryColor: {r: 0.76729554, g: 0, b: 0.62547797, a: 0.38431373}
     speedRange: {x: 15, y: 25}
     sizeRange: {x: 15, y: 20}
-  brakeEffects:
+  brakeEffectsConfig:
     primaryColor: {r: 1, g: 0.99215686, b: 0, a: 0.5176471}
     secondaryColor: {r: 1, g: 0.019607844, b: 0.011764706, a: 0.38431373}
     speedRange: {x: 5, y: 15}
     sizeRange: {x: 5, y: 10}
+--- !u!114 &7216805188051685242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388499676798950040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53988366c7e1c8b4a987029804276e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nearTarget: {fileID: 5168038725669546364}
+  farTarget: {fileID: 8305668913857000414}
 --- !u!114 &933403337199292374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,7 +692,7 @@ PrefabInstance:
     - target: {fileID: 2070329865598545796, guid: d9b826fbbb3615848bdc7f536dd1bb71,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2070329865598545796, guid: d9b826fbbb3615848bdc7f536dd1bb71,
         type: 3}
@@ -706,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 2070329865858060773, guid: d9b826fbbb3615848bdc7f536dd1bb71,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2070329865858060773, guid: d9b826fbbb3615848bdc7f536dd1bb71,
         type: 3}
@@ -840,6 +881,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4733138372085680314, guid: d9b826fbbb3615848bdc7f536dd1bb71,
         type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733138372085680314, guid: d9b826fbbb3615848bdc7f536dd1bb71,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.6
       objectReference: {fileID: 0}
@@ -892,6 +938,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733138373174635138, guid: d9b826fbbb3615848bdc7f536dd1bb71,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4733138373174635138, guid: d9b826fbbb3615848bdc7f536dd1bb71,
         type: 3}

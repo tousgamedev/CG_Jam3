@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using VFX;
 
 namespace Movement
@@ -13,23 +14,11 @@ namespace Movement
         private Transform modelParent;
 
         [SerializeField]
-        private ParticleSystem engineParticles;
-
-        [SerializeField]
-        private EngineEffects baseEffects;
-
-        [SerializeField]
-        private EngineEffects boostEffects;
-
-        [SerializeField]
-        private EngineEffects brakeEffects;
-
-        private ParticleSystem.MainModule mainModule;
+        private EngineEffects engineEffects;
         
         public override void Awake()
         {
             base.Awake();
-            mainModule = engineParticles.main;
             UpdateEngineParticles();
         }
 
@@ -161,19 +150,19 @@ namespace Movement
                 return;
             }
             
-            float progress = CalculateProgress(out EngineEffects engineEffects);
-            ApplyEngineEffects(engineEffects, progress);
+            float progress = CalculateProgress(out EngineEffectsConfig effectsConfig);
+            engineEffects.ApplyEffects(effectsConfig, progress);
         }
 
-        private float CalculateProgress(out EngineEffects engineEffects)
+        private float CalculateProgress(out EngineEffectsConfig engineEffectsConfig)
         {
-            engineEffects = MovementState switch
+            engineEffectsConfig = MovementState switch
             {
-                MovementState.Boost => boostEffects,
-                MovementState.Brake => brakeEffects,
-                MovementState.Restoring when CurrentSpeed < TargetBaseSpeed => brakeEffects,
-                MovementState.Restoring => boostEffects,
-                _ => baseEffects
+                MovementState.Boost => engineEffects.BoostConfig,
+                MovementState.Brake => engineEffects.BrakeConfig,
+                MovementState.Restoring when CurrentSpeed < TargetBaseSpeed => engineEffects.BrakeConfig,
+                MovementState.Restoring => engineEffects.BoostConfig,
+                _ => engineEffects.BaseConfig
             };
             
             return MovementState switch
@@ -188,18 +177,6 @@ namespace Movement
         private float SetProgress(float minSpeed, float maxSpeed)
         {
             return Mathf.InverseLerp(minSpeed, maxSpeed, CurrentSpeed);
-        }
-        
-        private void ApplyEngineEffects(EngineEffects engineEffects, float progress)
-        {
-            Color primaryColor = Color.Lerp(baseEffects.primaryColor, engineEffects.primaryColor, progress);
-            Color secondaryColor = Color.Lerp(baseEffects.secondaryColor, engineEffects.secondaryColor, progress);
-            Vector2 size = Vector2.Lerp(baseEffects.sizeRange, engineEffects.sizeRange, progress);
-            Vector2 speed = Vector2.Lerp(baseEffects.speedRange, engineEffects.speedRange, progress);
-
-            mainModule.startColor = new(primaryColor, secondaryColor);
-            mainModule.startSize = new(size.x, size.y);
-            mainModule.startSpeed = new(speed.x, speed.y);
         }
     }
 }

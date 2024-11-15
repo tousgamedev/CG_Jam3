@@ -9,7 +9,6 @@ namespace UI
     {
         private Transform target;
         private RectTransform rectTransform;
-        private FlightController playerController;
         private Camera mainCam;
         
         private void Start()
