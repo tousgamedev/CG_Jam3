@@ -1,30 +1,24 @@
+using System;
 using Characters;
-using Characters.Enemy;
 using Characters.Player;
 using Managers;
+using Turrets;
 using UnityEngine;
 
 namespace Movement
 {
-    public enum RotationAxis
-    {
-        YAxis,
-        XAxis
-    }
-
     public class TurretController : MonoBehaviour
     {
-        private const float TargetFindTimeInterval = 3f;
+        public Action<EnemyController> OnTargetAcquire;
+        public Action OnTargetClear;
+        
+        private const float FindTargetTimeInterval = 3f;
         private const float FireTimeInterval = 5f;
 
-        [SerializeField] private Transform pitchPivot;
-        [SerializeField] private Transform yawPivot;
-        [SerializeField] private float rotationSpeedY;
-        [SerializeField] private float rotationSpeedX;
-
         private TurretWeaponController weaponController;
-        private Transform currentTarget;
-        private float targetFindTimer;
+        private TurretRotator rotator;
+        private EnemyController target;
+        private float findTargetTimer;
         private float lastFireCheckTime;
 
         private void Awake()
@@ -33,25 +27,30 @@ namespace Movement
             {
                 Debug.LogWarning("No EnemyWeaponController component on TurretController found");
             }
+
+            if (TryGetComponent(out rotator))
+            {
+                OnTargetAcquire += rotator.SetTarget;
+                OnTargetClear += rotator.ClearTarget;
+                rotator.SetProjectileSpeed(1000);
+            }
         }
 
         public void Update()
         {
             FindTarget();
-            if (currentTarget == null)
+            if (target == null)
             {
                 return;
             }
 
-            RotateToTarget(Time.deltaTime, rotationSpeedY, yawPivot, RotationAxis.YAxis);
-            RotateToTarget(Time.deltaTime, rotationSpeedX, pitchPivot, RotationAxis.XAxis);
-            weaponController.SpawnProjectile(currentTarget);
+            weaponController.SpawnProjectile(target.transform);
 
             lastFireCheckTime += Time.deltaTime;
             if (weaponController.TimeSinceLastShot >= FireTimeInterval && lastFireCheckTime >= FireTimeInterval)
             {
                 lastFireCheckTime = 0;
-                currentTarget = null;
+                target = null;
             }
         }
 
@@ -65,66 +64,35 @@ namespace Movement
             weaponController.UpgradeRateOfFire();
         }
 
-        private void RotateToTarget(float deltaTime, float rotateSpeed, Transform pivotTransform, RotationAxis axis)
-        {
-            if (currentTarget == null)
-            {
-                return;
-            }
-
-            Vector3 directionToTarget = currentTarget.position - pivotTransform.position;
-            directionToTarget = axis == RotationAxis.YAxis
-                ? new(directionToTarget.x, 0, directionToTarget.z)
-                : new(0, directionToTarget.y, directionToTarget.z);
-
-            if (directionToTarget == Vector3.zero)
-            {
-                return;
-            }
-
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-            float targetAngle = axis == RotationAxis.YAxis
-                ? targetRotation.eulerAngles.y
-                : targetRotation.eulerAngles.x;
-
-            float currentAngle = axis == RotationAxis.YAxis
-                ? pivotTransform.localEulerAngles.y
-                : pivotTransform.localEulerAngles.x;
-
-            float smoothAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotateSpeed * deltaTime);
-
-            pivotTransform.localRotation = axis == RotationAxis.YAxis
-                ? Quaternion.Euler(0, smoothAngle, 0)
-                : Quaternion.Euler(smoothAngle, 0, 0);
-        }
-
         private void FindTarget()
         {
-            if (currentTarget != null)
+            if (target != null)
             {
                 return;
             }
 
-            targetFindTimer += Time.deltaTime;
-            if (!(targetFindTimer >= TargetFindTimeInterval))
+            findTargetTimer += Time.deltaTime;
+            if (findTargetTimer < FindTargetTimeInterval)
             {
                 return;
             }
 
-            targetFindTimer = 0;
-            EnemyController target = EnemyManager.Instance.FindNearestTarget(transform);
-            if (target == null)
+            findTargetTimer = 0;
+            EnemyController enemy = EnemyManager.Instance.FindNearestTarget(transform);
+            if (enemy == null)
             {
                 return;
             }
 
+            target = enemy;
             target.Health.OnHealthDepleted += ClearTarget;
-            currentTarget = target.transform;
+            OnTargetAcquire?.Invoke(target);
         }
 
         private void ClearTarget(BaseCharacterController controller)
         {
-            currentTarget = null;
+            target = null;
+            OnTargetClear?.Invoke();
         }
     }
 }

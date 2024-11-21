@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI
+namespace UI.Minimap
 {
     public enum MinimapMode
     {
@@ -16,9 +15,15 @@ namespace UI
         {
             get
             {
+                if (instance != null)
+                {
+                    return instance;
+                }
+
+                instance = FindAnyObjectByType<MinimapController>(FindObjectsInactive.Include);
                 if (instance == null)
                 {
-                    instance = FindAnyObjectByType<MinimapController>(FindObjectsInactive.Include);
+                    Debug.LogError("No Minimap Controller found");
                 }
 
                 return instance;
@@ -27,35 +32,56 @@ namespace UI
 
         private static MinimapController instance;
 
-        [SerializeField] private List<Vector2> worldSize = new()
+        [Header("Map Config"), SerializeField]
+        private List<Vector2> worldSize = new()
         {
             new(300, 300),
             new(600, 600),
             new(1300, 1300)
         };
 
-        [SerializeField] private List<float> updateDelays = new()
+        [SerializeField]
+        private List<float> updateDelays = new()
         {
             2f,
             1f,
             0
         };
+        
+        [SerializeField]
+        private Vector3 mapOrigin = Vector3.zero;
 
-        [SerializeField] private Vector2 fullScreenDimensions = new(1000, 1000);
-        [SerializeField] private float zoomSpeed = 0.1f;
-        [SerializeField] private float maxZoom = 10f;
-        [SerializeField] private float minZoom = 1f;
-        [SerializeField] private RectTransform scrollViewRectTransform;
-        [SerializeField] private RectTransform contentRectTransform;
-        [SerializeField] private MinimapIcon minimapIconPrefab;
+        [Header("Size Configs"), SerializeField]
+        private Vector2 fullScreenDimensions = new(1000, 1000);
 
-        Matrix4x4 transformationMatrix;
+        [SerializeField]
+        private float defaultScaleWhenFullScreen = 1.3f;
+
+        [Header("Zoom"), SerializeField]
+        private float zoomSpeed = 0.1f;
+
+        [SerializeField]
+        private float maxZoom = 10f;
+
+        [SerializeField]
+        private float minZoom = 1f;
+
+        [Header("Map"), SerializeField]
+        private RectTransform scrollViewRectTransform;
+
+        [SerializeField]
+        private RectTransform contentRectTransform;
+
+        [SerializeField]
+        private MinimapIcon minimapIconPrefab;
+
+        private Matrix4x4 transformationMatrix;
 
         private MinimapMode currentMiniMapMode = MinimapMode.Mini;
         private MinimapIcon followIcon;
         private Vector2 scrollViewDefaultSize;
         private Vector2 scrollViewDefaultPosition;
-        private Vector2 halfVector2 = new(0.5f, 0.5f);
+        private readonly Vector2 halfVector2 = new(0.5f, 0.5f);
         private readonly Dictionary<MinimapWorldObject, MinimapIcon> miniMapWorldObjectsLookup = new();
 
         private int sizeIndex;
@@ -94,9 +120,13 @@ namespace UI
 
         public void RegisterMinimapWorldObject(MinimapWorldObject miniMapWorldObject, bool followObject = false)
         {
-            MinimapIcon minimapIcon = Instantiate(minimapIconPrefab);
-            minimapIcon.transform.SetParent(contentRectTransform);
-            minimapIcon.transform.SetParent(contentRectTransform);
+            if (miniMapWorldObject == null)
+            {
+                Debug.LogError("Minimap World Object is null");
+                return;
+            }
+
+            MinimapIcon minimapIcon = Instantiate(minimapIconPrefab, contentRectTransform, true);
             minimapIcon.Image.sprite = miniMapWorldObject.MinimapIcon;
             miniMapWorldObjectsLookup[miniMapWorldObject] = minimapIcon;
 
@@ -123,8 +153,6 @@ namespace UI
 
         public void SetMinimapMode(MinimapMode mode)
         {
-            const float defaultScaleWhenFullScreen = 1.3f; // 1.3f looks good here but it could be anything
-
             if (mode == currentMiniMapMode)
             {
                 return;
@@ -138,7 +166,6 @@ namespace UI
                     scrollViewRectTransform.anchorMax = Vector2.one;
                     scrollViewRectTransform.pivot = Vector2.one;
                     scrollViewRectTransform.anchoredPosition = scrollViewDefaultPosition;
-                    currentMiniMapMode = MinimapMode.Mini;
                     break;
                 case MinimapMode.Fullscreen:
                     scrollViewRectTransform.sizeDelta = fullScreenDimensions;
@@ -146,10 +173,11 @@ namespace UI
                     scrollViewRectTransform.anchorMax = halfVector2;
                     scrollViewRectTransform.pivot = halfVector2;
                     scrollViewRectTransform.anchoredPosition = Vector2.zero;
-                    currentMiniMapMode = MinimapMode.Fullscreen;
                     contentRectTransform.transform.localScale = Vector3.one * defaultScaleWhenFullScreen;
                     break;
             }
+
+            currentMiniMapMode = mode;
         }
 
         private void ZoomMap(float zoom)
@@ -169,12 +197,14 @@ namespace UI
 
         private void CenterMapOnIcon()
         {
-            if (followIcon != null)
+            if (followIcon == null)
             {
-                float mapScale = contentRectTransform.transform.localScale.x;
-                // we simply move the map in the opposite direction the player moved, scaled by the mapscale
-                contentRectTransform.anchoredPosition = (-followIcon.RectTransform.anchoredPosition * mapScale);
+                return;
             }
+
+            float mapScale = contentRectTransform.transform.localScale.x;
+            // we simply move the map in the opposite direction the player moved, scaled by the mapscale
+            contentRectTransform.anchoredPosition = (-followIcon.RectTransform.anchoredPosition * mapScale);
         }
 
         private void UpdateMiniMapIcons()
@@ -183,12 +213,12 @@ namespace UI
             float iconScale = 1 / contentRectTransform.transform.localScale.x;
             foreach (var kvp in miniMapWorldObjectsLookup)
             {
-                var miniMapWorldObject = kvp.Key;
-                var miniMapIcon = kvp.Value;
-                var mapPosition = WorldPositionToMapPosition(miniMapWorldObject.transform.position);
+                MinimapWorldObject miniMapWorldObject = kvp.Key;
+                MinimapIcon miniMapIcon = kvp.Value;
+                Vector2 mapPosition = WorldPositionToMapPosition(miniMapWorldObject.transform.position);
 
                 miniMapIcon.RectTransform.anchoredPosition = mapPosition;
-                var rotation = miniMapWorldObject.transform.rotation.eulerAngles;
+                Vector3 rotation = miniMapWorldObject.transform.rotation.eulerAngles;
                 miniMapIcon.IconRectTransform.localRotation = Quaternion.AngleAxis(-rotation.y, Vector3.forward);
                 miniMapIcon.IconRectTransform.localScale = Vector3.one * iconScale;
             }
@@ -196,17 +226,17 @@ namespace UI
 
         private Vector2 WorldPositionToMapPosition(Vector3 worldPos)
         {
-            var pos = new Vector2(worldPos.x, worldPos.z);
+            var pos = new Vector3(worldPos.x - mapOrigin.x, worldPos.z - mapOrigin.z, 0);
             return transformationMatrix.MultiplyPoint3x4(pos);
         }
 
         private void CalculateTransformationMatrix()
         {
-            var minimapSize = contentRectTransform.rect.size;
+            Vector2 minimapSize = contentRectTransform.rect.size;
             var worldSize = new Vector2(this.worldSize[sizeIndex].x, this.worldSize[sizeIndex].y);
 
-            var translation = -minimapSize / 2;
-            var scaleRatio = minimapSize / worldSize;
+            Vector2 translation = -minimapSize / 2 + new Vector2(mapOrigin.x, mapOrigin.z);
+            Vector2 scaleRatio = minimapSize / worldSize;
 
             transformationMatrix = Matrix4x4.TRS(translation, Quaternion.identity, scaleRatio);
 
@@ -219,14 +249,12 @@ namespace UI
         public void UpgradeRange()
         {
             sizeIndex = Mathf.Clamp(sizeIndex + 1, 0, worldSize.Count - 1);
-            Debug.LogError(sizeIndex);
             CalculateTransformationMatrix();
         }
 
         public void UpgradeScanRate()
         {
             updateIndex = Mathf.Clamp(updateIndex + 1, 0, updateDelays.Count - 1);
-            Debug.LogError(updateIndex);
         }
 
         private void OnDestroy()

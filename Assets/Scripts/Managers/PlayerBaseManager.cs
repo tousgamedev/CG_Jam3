@@ -1,9 +1,8 @@
 using Aircraft;
-using Characters.Player;
 using System;
 using System.Collections.Generic;
 using Movement;
-using UI;
+using UI.Minimap;
 using UnityEngine;
 using UnityEngine.UI;
 

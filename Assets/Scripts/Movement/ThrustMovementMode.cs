@@ -6,9 +6,7 @@ namespace Movement
 {
     public class ThrustMovementMode : BaseMovementMode
     {
-        // Define floor and ceiling altitude constraints
-        private const float FloorAltitude = 5f;
-        private const float CeilingAltitude = 40f;
+
         
         [Header("Visuals"), SerializeField]
         private Transform modelParent;
@@ -33,7 +31,7 @@ namespace Movement
             switch (MovementState)
             {
                 case MovementState.Restoring:
-                    CurrentForwardSpeed = Mathf.MoveTowards(CurrentForwardSpeed, TargetBaseSpeed, BaseReturnRate * deltaTime);
+                    ForwardSpeed = Mathf.MoveTowards(ForwardSpeed, TargetBaseSpeed, BaseReturnRate * deltaTime);
 
                     if (CurrentBoostDuration < TargetBoostDuration)
                     {
@@ -52,7 +50,7 @@ namespace Movement
                     break;
                 case MovementState.Boost:
                     CurrentBoostDuration -= deltaTime;
-                    CurrentForwardSpeed = Mathf.MoveTowards(CurrentForwardSpeed, TargetBoostSpeed, BoostRate * deltaTime);
+                    ForwardSpeed = Mathf.MoveTowards(ForwardSpeed, TargetBoostSpeed, BoostRate * deltaTime);
                     if (CurrentBoostDuration <= 0)
                     {
                         MovementState = MovementState.Restoring;
@@ -63,7 +61,7 @@ namespace Movement
                     break;
                 case MovementState.Brake:
                     CurrentBrakeDuration -= deltaTime;
-                    CurrentForwardSpeed = Mathf.MoveTowards(CurrentForwardSpeed, TargetBrakeSpeed, BrakeRate * deltaTime);
+                    ForwardSpeed = Mathf.MoveTowards(ForwardSpeed, TargetBrakeSpeed, BrakeRate * deltaTime);
                     if (CurrentBrakeDuration <= 0)
                     {
                         MovementState = MovementState.Restoring;
@@ -113,14 +111,11 @@ namespace Movement
         {
             float targetYaw = MovementInput.x * turnAngles[TurnAngleIndex].yaw;
 
-            // Gradually lerp towards the target turn rate for a slower response
             CurrentYaw = Mathf.Lerp(CurrentYaw, targetYaw, turnLerpSpeed * deltaTime);
 
-            // Apply rotation based on the current interpolated turn rate
             float rotationAmount = CurrentYaw * deltaTime;
             transform.Rotate(0, rotationAmount, 0);
 
-            // Tie roll angle directly to current turn rate
             CurrentRoll = CurrentYaw / turnAngles[TurnAngleIndex].yaw * -turnAngles[TurnAngleIndex].roll;
 
             Quaternion pitchRotation = Quaternion.LookRotation(CurrentPitch);
@@ -130,12 +125,17 @@ namespace Movement
 
         protected override void Move(float deltaTime)
         {
-            CurrentHeading = transform.forward * CurrentForwardSpeed + transform.up * CurrentVerticalSpeed;
-            transform.Translate(CurrentHeading * deltaTime, Space.World);
-
-            if (CurrentHeading.sqrMagnitude > 0.0001f)
+            CurrentVelocity = transform.forward * ForwardSpeed + transform.up * CurrentVerticalSpeed;
+            if (MovementState == MovementState.Stop)
             {
-                CurrentPitch = CurrentHeading.normalized;
+                return;
+            }
+            
+            transform.Translate(CurrentVelocity * deltaTime, Space.World);
+
+            if (CurrentVelocity.sqrMagnitude > 0.0001f)
+            {
+                CurrentPitch = CurrentVelocity.normalized;
             }
             else if (Vector3.Dot(CurrentPitch, transform.forward) < 0.999f)
             {
@@ -160,7 +160,7 @@ namespace Movement
             {
                 MovementState.Boost => engineEffects.BoostConfig,
                 MovementState.Brake => engineEffects.BrakeConfig,
-                MovementState.Restoring when CurrentSpeed < TargetBaseSpeed => engineEffects.BrakeConfig,
+                MovementState.Restoring when Speed < TargetBaseSpeed => engineEffects.BrakeConfig,
                 MovementState.Restoring => engineEffects.BoostConfig,
                 _ => engineEffects.BaseConfig
             };
@@ -169,14 +169,14 @@ namespace Movement
             {
                 MovementState.Boost => SetProgress(TargetBaseSpeed, TargetBoostSpeed),
                 MovementState.Brake => SetProgress(TargetBaseSpeed, TargetBrakeSpeed),
-                MovementState.Restoring => SetProgress(TargetBaseSpeed, CurrentSpeed < TargetBaseSpeed ? TargetBrakeSpeed : TargetBoostSpeed),
+                MovementState.Restoring => SetProgress(TargetBaseSpeed, Speed < TargetBaseSpeed ? TargetBrakeSpeed : TargetBoostSpeed),
                 _ => 0f
             };
         }
         
         private float SetProgress(float minSpeed, float maxSpeed)
         {
-            return Mathf.InverseLerp(minSpeed, maxSpeed, CurrentSpeed);
+            return Mathf.InverseLerp(minSpeed, maxSpeed, Speed);
         }
     }
 }

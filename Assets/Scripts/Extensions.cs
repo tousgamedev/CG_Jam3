@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class Extensions
 {
@@ -53,5 +54,29 @@ public static class Extensions
         return true;
     }
 
+    #endregion
+    
+    #region Transforms/Vectors
+
+    public static Vector3 DirectionTo(this Transform startTransform, Transform targetTransform)
+    {
+        return targetTransform.position - startTransform.position;
+    }
+    
+    public static Vector3 DirectionTo(this Transform startTransform, Vector3 targetPosition)
+    {
+        return targetPosition - startTransform.position;
+    }
+    
+    public static Vector3 DirectionTo(this Vector3 startVector, Vector3 targetVector)
+    {
+        return targetVector - startVector;
+    }
+
+    public static Vector2 DirectionTo(this Vector2 startVector, Vector2 targetVector)
+    {
+        return targetVector - startVector;
+    }
+    
     #endregion
 }

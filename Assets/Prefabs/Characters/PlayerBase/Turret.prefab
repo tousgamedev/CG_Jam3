@@ -97,6 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3491711141140823623}
   - component: {fileID: 2504516216261181609}
+  - component: {fileID: 5615117741035409914}
   - component: {fileID: 2472924798277356323}
   m_Layer: 0
   m_Name: Turret
@@ -134,10 +135,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f45eabafbccfe94db22cb4d391b6693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchPivot: {fileID: 1943099809096687886}
-  yawPivot: {fileID: 571058419174753005}
-  rotationSpeedY: 120
-  rotationSpeedX: 180
+--- !u!114 &5615117741035409914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8156590876920375522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b8611ad9e9351448c5ac7e6116dbf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basePivot: {fileID: 571058419174753005}
+  gunPivot: {fileID: 1943099809096687886}
+  baseRotationSpeed: 0
+  gunRotationSpeed: 0
+  gunMinAngle: -10
+  gunMaxAngle: 80
 --- !u!114 &2472924798277356323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +217,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: centurion_weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 4452101990008706, guid: c9852089bfb8d074e8b7b63adf7185ef, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9816273
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452101990008706, guid: c9852089bfb8d074e8b7b63adf7185ef, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.19080894
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452101990008706, guid: c9852089bfb8d074e8b7b63adf7185ef, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452101990008706, guid: c9852089bfb8d074e8b7b63adf7185ef, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452101990008706, guid: c9852089bfb8d074e8b7b63adf7185ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -22
+      objectReference: {fileID: 0}
     - target: {fileID: 4935858836924492, guid: c9852089bfb8d074e8b7b63adf7185ef, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -252,6 +287,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4935858836924492, guid: c9852089bfb8d074e8b7b63adf7185ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092486365217082287, guid: c9852089bfb8d074e8b7b63adf7185ef,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092486365217082287, guid: c9852089bfb8d074e8b7b63adf7185ef,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092486365217082287, guid: c9852089bfb8d074e8b7b63adf7185ef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

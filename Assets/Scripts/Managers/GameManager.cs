@@ -49,6 +49,55 @@ namespace Managers
             
             TogglePause();
         }
+        
+        public Transform GetTarget(Vector3 currentPosition, TargetTypes targetType)
+        {
+            switch (targetType)
+            {
+                case TargetTypes.Base:
+                    return GameObject.FindGameObjectWithTag("Base").transform;
+                case TargetTypes.Player:
+                    return GameObject.FindGameObjectWithTag("Player").transform;
+                case TargetTypes.Turret:
+                    GameObject[] turrets = GameObject.FindGameObjectsWithTag("Turret");
+                    if (turrets is not { Length: > 0 })
+                    {
+                        return null;
+                    }
+
+                    Transform closestTurret = null;
+                    float closestTurretDistance = 0;
+                    if (turrets.Length > 0)
+                    {
+                        foreach (GameObject turret in turrets)
+                        {
+                            if (closestTurret == null)
+                            {
+                                closestTurret = turret.transform;
+                                closestTurretDistance = Vector3.Distance(currentPosition, closestTurret.position);
+                                continue;
+                            }
+
+                            float distance = Vector3.Distance(currentPosition, turret.transform.position);
+                            if (distance >= closestTurretDistance)
+                            {
+                                continue;
+                            }
+
+                            closestTurret = turret.transform;
+                            closestTurretDistance = distance;
+                        }
+                    }
+
+                    break;
+                case TargetTypes.None:
+                default:
+                    Debug.LogError("No valid target set!");
+                    break;
+            }
+
+            return null;
+        }
 
         public void AddScore(int scoreToAdd)
         {

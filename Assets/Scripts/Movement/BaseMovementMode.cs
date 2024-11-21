@@ -29,13 +29,21 @@ namespace Movement
         Default,
         Boost,
         Brake,
-        Restoring
+        Restoring,
+        Stop
     }
 
     public abstract class BaseMovementMode : MonoBehaviour
     {
+        protected const float FloorAltitude = 10f;
+        protected const float CeilingAltitude = 40f;
+        
         public Action<float> OnBoostDurationChange;
-        public float CurrentSpeed => CurrentForwardSpeed;
+        
+        public float Speed => ForwardSpeed;
+        public bool CanBoost => MovementState == MovementState.Default && CurrentBoostDuration == TargetBoostDuration;
+        public Vector3 Velocity => CurrentVelocity;
+        public TurnAngle TurnAngles => turnAngles[TurnAngleIndex];
         
         protected float TargetBoostSpeed => baseSpeeds[BaseSpeedIndex] + boostSpeeds[BoostSpeedIndex];
         protected float TargetBoostDuration => boostDurations[BoostDurationIndex];
@@ -94,12 +102,12 @@ namespace Movement
 
         protected Vector2 MovementInput;
 
-        protected Vector3 CurrentHeading;
+        protected Vector3 CurrentVelocity;
         protected Vector3 CurrentPitch;
         protected float CurrentYaw;
         protected float CurrentRoll;
 
-        protected float CurrentForwardSpeed;
+        protected float ForwardSpeed;
         protected float CurrentVerticalSpeed;
         protected float CurrentBoostDuration;
         protected float CurrentBrakeDuration;
@@ -118,7 +126,7 @@ namespace Movement
         {
             CurrentPitch = transform.forward;
             CurrentBoostDuration = boostDurations[BoostDurationIndex];
-            CurrentForwardSpeed = baseSpeeds[BaseSpeedIndex];
+            ForwardSpeed = baseSpeeds[BaseSpeedIndex];
             BoostRate = boostSpeeds[BoostSpeedIndex] / startSpeedChangeTransitionTime;
             BrakeRate = brakeSpeeds[BrakeSpeedIndex] / startSpeedChangeTransitionTime;
         }
@@ -173,6 +181,11 @@ namespace Movement
                 MovementState = MovementState.Brake;
                 BaseReturnRate = BrakeRate;
             }
+        }
+
+        public virtual void SetMovementState(MovementState movementState)
+        {
+            MovementState = movementState;
         }
 
         public virtual void IncrementIndex(MovementAttribute index)

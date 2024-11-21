@@ -1,3 +1,4 @@
+using UI.Minimap;
 using UnityEngine;
 
 namespace UI
