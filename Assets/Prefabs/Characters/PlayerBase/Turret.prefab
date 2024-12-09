@@ -99,6 +99,8 @@ GameObject:
   - component: {fileID: 2504516216261181609}
   - component: {fileID: 5615117741035409914}
   - component: {fileID: 2472924798277356323}
+  - component: {fileID: 202201445295887769}
+  - component: {fileID: 7296582650002071818}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -149,8 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePivot: {fileID: 571058419174753005}
   gunPivot: {fileID: 1943099809096687886}
-  baseRotationSpeed: 0
-  gunRotationSpeed: 0
+  baseRotationSpeed: 60
+  gunRotationSpeed: 60
   gunMinAngle: -10
   gunMaxAngle: 80
 --- !u!114 &2472924798277356323
@@ -174,6 +176,39 @@ MonoBehaviour:
   - {fileID: 1168849813235510873, guid: b5c6a0e18d52d8144a3e4fb3233f53ba, type: 3}
   - {fileID: 1168849813235510873, guid: 2d2cd8deb1616574e96f723af223e2e1, type: 3}
   bulletSpawn: {fileID: 8387381221615051208}
+--- !u!65 &202201445295887769
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8156590876920375522}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.9, y: 9.9, z: 9.9}
+  m_Center: {x: 0, y: 4.9, z: 0}
+--- !u!114 &7296582650002071818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8156590876920375522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3f5f777a7c0db4f83804158cbb93e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8348179596904838163
 GameObject:
   m_ObjectHideFlags: 0

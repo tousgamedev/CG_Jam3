@@ -1,9 +1,9 @@
 using System;
 using Characters;
-using Characters.Player;
 using Managers;
 using Turrets;
 using UnityEngine;
+using Weapons.Controllers;
 
 namespace Movement
 {

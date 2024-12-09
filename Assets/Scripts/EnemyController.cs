@@ -5,6 +5,7 @@ using Managers;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
+using Weapons.Controllers;
 
 namespace Movement
 {

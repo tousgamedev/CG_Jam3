@@ -1,6 +1,5 @@
 using System;
 using Characters;
-using Characters.Player;
 using Movement;
 using Player;
 using UnityEngine;
@@ -147,12 +146,12 @@ namespace Managers
 
         public void UpgradeFirepower()
         {
-            player.WeaponController.UpgradeFirepower();
+            player.PlayerWeaponController.UpgradeFirepower();
         }
 
         public void UpgradeRateOfFire()
         {
-            player.WeaponController.UpgradeRateOfFire();
+            player.PlayerWeaponController.UpgradeRateOfFire();
         }
 
         public void UpgradeBaseSpeed()

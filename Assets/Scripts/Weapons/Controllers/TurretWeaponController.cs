@@ -1,40 +1,12 @@
-using System.Collections.Generic;
 using Aircraft;
 using Movement;
 using UnityEngine;
-using Weapons;
 
-namespace Characters.Player
+namespace Weapons.Controllers
 {
-    public class TurretWeaponController : MonoBehaviour
+    public class TurretWeaponController : BaseWeaponController
     {
         public float TimeSinceLastShot { get; private set; }
-
-        [SerializeField, Tooltip("Shots per minute")]
-        private List<float> ratesOfFire = new()
-        {
-            15,
-            30,
-            45
-        };
-
-        [SerializeField] private List<GameObject> bulletPrefabs;
-        [SerializeField] private Transform bulletSpawn;
-
-        private TurretController hub;
-        private float timeBetweenShots;
-        private float spawnAdjust;
-
-        private int prefabIndex;
-        private int rateOfFireIndex;
-
-        private void Start()
-        {
-            rateOfFireIndex = Mathf.Clamp(rateOfFireIndex, 0, ratesOfFire.Count - 1);
-            prefabIndex = Mathf.Clamp(prefabIndex, 0, bulletPrefabs.Count - 1);
-            timeBetweenShots = 60f / ratesOfFire[rateOfFireIndex];
-            TimeSinceLastShot = timeBetweenShots;
-        }
 
         private void Update()
         {
@@ -48,7 +20,7 @@ namespace Characters.Player
 
         public void SpawnProjectile(Transform target)
         {
-            if (TimeSinceLastShot < timeBetweenShots)
+            if (TimeSinceLastShot < FireInterval)
             {
                 return;
             }
@@ -59,7 +31,7 @@ namespace Characters.Player
             }
 
             Vector3 adjustedPosition = CalculateSpawnPosition();
-            var laser = Instantiate(bulletPrefabs[prefabIndex], adjustedPosition, bulletSpawn.rotation).GetComponent<Laser>();
+            var laser = Instantiate(bulletPrefabs[PrefabIndex], adjustedPosition, bulletSpawn.rotation).GetComponent<Laser>();
             if (laser == null)
             {
                 return;
@@ -113,17 +85,7 @@ namespace Characters.Player
             return Vector3.Dot(bulletSpawn.forward, directionToTarget) >= cosAngleThreshold;
         }
 
-        public void UpgradeFirepower()
-        {
-            prefabIndex = Mathf.Clamp(prefabIndex + 1, 0, bulletPrefabs.Count - 1);
-        }
-
-        public void UpgradeRateOfFire()
-        {
-            rateOfFireIndex = Mathf.Clamp(rateOfFireIndex + 1, 0, ratesOfFire.Count - 1);
-        }
-
-        private Vector3 CalculateSpawnPosition()
+        protected override Vector3 CalculateSpawnPosition()
         {
             return bulletSpawn.position + bulletSpawn.forward;
         }

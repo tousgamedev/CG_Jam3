@@ -1,4 +1,3 @@
-using Characters.Player;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;

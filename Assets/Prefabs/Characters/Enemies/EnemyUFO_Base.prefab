@@ -444,8 +444,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: 0
+  evasionRange: 75
   engageRange: 200
   fireRange: 400
+  attackArc: 20
   shotSpawnPoint: {fileID: 2717469990644319908}
   scoreValue: 100
   deathPrefab: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,
@@ -483,9 +485,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd099bffe8e6ae409883def224815a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 60
-  bulletPrefab: {fileID: 1168849813235510873, guid: 904595e019a53d548a33fcf47cc7f1e1,
-    type: 3}
+  ratesOfFire:
+  - 30
+  bulletPrefabs:
+  - {fileID: 1168849813235510873, guid: 904595e019a53d548a33fcf47cc7f1e1, type: 3}
   bulletSpawn: {fileID: 2717469990644319908}
 --- !u!114 &1251930990821761455
 MonoBehaviour:

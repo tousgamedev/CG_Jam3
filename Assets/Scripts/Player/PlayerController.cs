@@ -5,19 +5,20 @@ using Movement;
 using UI;
 using UnityEngine;
 using Weapons;
+using Weapons.Controllers;
 
 namespace Player
 {
     public class PlayerController : BaseCharacterController
     {
         public BaseMovementMode MovementMode => movementMode;
-        public WeaponController WeaponController => weaponController;
+        public PlayerWeaponController PlayerWeaponController => playerWeaponController;
         public Health Health => health;
 
         [SerializeField] private GameObject destroyPrefab;
         
         private BaseMovementMode movementMode;
-        private WeaponController weaponController;
+        private PlayerWeaponController playerWeaponController;
         private Health health;
 
         private void Awake()
@@ -27,9 +28,9 @@ namespace Player
                 movementMode.OnBoostDurationChange += PlayerCanvas.Instance.Status.SetBoost;
             }
             
-            if(TryGetComponent(out weaponController))
+            if(TryGetComponent(out playerWeaponController))
             {
-                weaponController.SetPlayerHub(this);
+                playerWeaponController.SetPlayerHub(this);
             }
 
             if (TryGetComponent(out health))
@@ -49,7 +50,7 @@ namespace Player
         private void OnDeath(BaseCharacterController controllerBase)
         {
             MovementMode.enabled = false;
-            WeaponController.enabled = false;
+            PlayerWeaponController.enabled = false;
             movementMode.OnBoostDurationChange -= PlayerCanvas.Instance.Status.SetBoost;
             health.OnHealthDepleted -= OnDeath;
             health.OnHealthDepleted -= GameManager.Instance.OnPlayerDeath;

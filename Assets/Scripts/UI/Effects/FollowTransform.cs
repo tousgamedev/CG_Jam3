@@ -1,5 +1,4 @@
 using Aircraft;
-using Characters.Player;
 using Movement;
 using UnityEngine;
 

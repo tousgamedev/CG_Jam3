@@ -1,38 +1,21 @@
-using Characters.Player;
 using Movement;
 using Player;
 using UnityEngine;
-using Weapons;
 
-namespace Characters.Enemy
+namespace Weapons.Controllers
 {
-    public class EnemyWeaponController : MonoBehaviour
+    public class EnemyWeaponController : BaseWeaponController
     {
-        [SerializeField, Tooltip("Shots per minute")]
-        private float rateOfFire;
-
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private Transform bulletSpawn;
-
         private EnemyController hub;
-        private float timeBetweenShots;
-        private float shotTimer;
-        private float spawnAdjust;
-
-        private void Start()
-        {
-            timeBetweenShots = 60f / rateOfFire;
-            shotTimer = timeBetweenShots;
-        }
 
         private void Update()
         {
-            shotTimer += Time.deltaTime;
+            ShotTimer += Time.deltaTime;
         }
 
         public void SpawnProjectile(Transform target)
         {
-            if (shotTimer < timeBetweenShots)
+            if (ShotTimer < FireInterval)
             {
                 return;
             }
@@ -43,8 +26,8 @@ namespace Characters.Enemy
             }
 
             Vector3 adjustedPosition = CalculateSpawnPosition();
-            shotTimer = 0;
-            var laser = Instantiate(bulletPrefab, adjustedPosition, bulletSpawn.rotation).GetComponent<Laser>();
+            ShotTimer = 0;
+            var laser = Instantiate(bulletPrefabs[PrefabIndex], adjustedPosition, bulletSpawn.rotation).GetComponent<Laser>();
             if (laser == null)
             {
                 return;
@@ -125,7 +108,7 @@ namespace Characters.Enemy
             hub = controller;
         }
 
-        private Vector3 CalculateSpawnPosition()
+        protected override Vector3 CalculateSpawnPosition()
         {
             return bulletSpawn.position + bulletSpawn.forward;
         }
